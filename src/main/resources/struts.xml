@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="basePackage" abstract="true" extends="struts-default">
+        <global-results>
+            <result name="fail">/two_login/fail.jsp</result>
+        </global-results>
+    </package>
+
+    <!-- 第1课 默认执行execute-->
+    <package name="one_login" namespace="/mystruts2/one_login" extends="struts-default">
+        <action name="login" class="com.discry.struts2.actions.one_login.LoginAction">
+            <result name="success">/one_login/welcome.jsp</result>
+        </action>
+    </package>
+    <!-- 第2课 result type属性-->
+    <package name="two_resultType" namespace="/mystruts2/two_resultType" extends="struts-default">
+        <action name="login" class="com.discry.struts2.actions.two_resultType.LoginAction" method="login">
+            <result type="dispatcher">/two_resultType/welcome.jsp</result>
+        </action>
+        <action name="login1" class="com.discry.struts2.actions.two_resultType.LoginAction" method="login">
+            <result type="redirect">
+                <param name="username">${username}</param>
+                <param name="location">/two_resultType/welcome.jsp</param>
+            </result>
+        </action>
+        <action name="login2" class="com.discry.struts2.actions.two_resultType.LoginAction" method="login">
+            <result type="redirectAction">
+                <param name="username">${username}</param>
+                <param name="actionName">login</param>
+            </result>
+        </action>
+        <action name="login3" class="com.discry.struts2.actions.two_resultType.LoginAction" method="login">
+            <result type="chain">
+                <param name="actionName">login</param>
+            </result>
+        </action>
+        <action name="toRegister">
+            <result>/two_resultType/register.jsp</result>
+        </action>
+    </package>
+    <!-- 第3课 全局Result-->
+    <package name="three_globalResults" namespace="/mystruts2/three_globalResults" extends="basePackage">
+        <action name="login" class="com.discry.struts2.actions.three_globalResults.LoginAction" method="login">
+            <result name="success">/three_globalResults/welcome.jsp</result>
+        </action>
+    </package>
+    <!-- 第4课 动态方法调用和通配符Action方法调用-->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+    <package name="four_dynamicMethod" namespace="/mystruts2/four_dynamicMethod" extends="struts-default">
+        <action name="login1" class="com.discry.struts2.actions.four_dynamicMethod.LoginAction">
+            <result name="success">/four_dynamicMethod/welcome.jsp</result>
+            <result name="verification">/four_dynamicMethod/verification.jsp</result>
+        </action>
+        <action name="login2_*" class="com.discry.struts2.actions.four_dynamicMethod.LoginAction" method="{1}">
+            <result name="success">/four_dynamicMethod/welcome.jsp</result>
+            <result name="verification">/four_dynamicMethod/verification.jsp</result>
+        </action>
+    </package>
+    <!-- 第5课 域驱动方式-->
+    <package name="five_ReceiveObject" namespace="/mystruts2/five_ReceiveObject" extends="struts-default">
+        <action name="loginAction" class="com.discry.struts2.actions.five_ReceiveObject.LoginAction" method="login">
+            <result>/five_ReceiveObject/welcome.jsp</result>
+        </action>
+    </package>
+    <!-- 第6课 收集集合 -->
+    <package name="six_ReceiveCollection" namespace="/mystruts2/six_ReceiveCollection" extends="struts-default">
+        <action name="loginAction" class="com.discry.struts2.actions.six_ReceiveCollection.LoginAction" method="login">
+            <result>/six_ReceiveCollection/welcome.jsp</result>
+        </action>
+    </package>
+    <!-- 第7课 ModelDriven-->
+    <package name="seven_modelDriven" namespace="/mystruts2/seven_modelDriven" extends="struts-default">
+        <action name="loginAction" class="com.discry.struts2.actions.seven_modelDriven.LoginAction" method="login">
+            <result>/seven_modelDriven/welcome.jsp</result>
+        </action>
+    </package>
+    <!-- 第8课 获取ServletAPI-->
+    <package name="eight_servletAPI" namespace="/mystruts2/eight_servletAPI" extends="struts-default">
+        <action name="loginAction_*" class="com.discry.struts2.actions.eight_servletAPI.LoginAction" method="{1}">
+            <result>/eight_servletAPI/welcome.jsp</result>
+        </action>
+        <action name="loginAction2" class="com.discry.struts2.actions.eight_servletAPI.LoginAction2" method="login">
+            <result>/eight_servletAPI/welcome.jsp</result>
+        </action>
+    </package>
+    <!-- 第9课 ognl -->
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+    <package name="nine_ognl" namespace="/mystruts2/nine_ognl" extends="struts-default">
+        <action name="ognlAction" class="com.discry.struts2.actions.nine_ognl.LoginAction" method="login1">
+            <result>/nine_ognl/welcome.jsp</result>
+        </action>
+    </package>
+    <!-- 第10课 操作valueStack -->
+    <package name="ten_valueStack" namespace="/mystruts2/ten_valueStack" extends="struts-default">
+        <action name="loginAction_*" class="com.discry.struts2.actions.ten_valueStack.LoginAction" method="{1}">
+            <result>/ten_valueStack/welcome.jsp</result>
+            <result name="test">/ten_valueStack/test.jsp</result>
+        </action>
+    </package>
+    <!-- 第11课 ognl集合操作 -->
+    <package name="eleven_ognl_collections" namespace="/mystruts2/eleven_ognl_collections" extends="struts-default">
+        <action name="ognlAction" class="com.discry.struts2.actions.eleven_ognl_collections.OgnlAction">
+            <result>/eleven_ognl_collections/welcome.jsp</result>
+        </action>
+    </package>
+    <!-- 第12课 自定义类型转换器 -->
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <package name="twelve_typeConverter" namespace="/mystruts2/twelve_typeConverter" extends="struts-default">
+        <action name="RegeditAction" class="com.discry.struts2.actions.twelve_typeconverter.RegeditAction" method="regedit">
+            <result>/twelve_typeconverter/welcome.jsp</result>
+            <result name="input">/twelve_typeconverter/regedit.jsp</result>
+        </action>
+    </package>
+    <!-- 第13课 数据验证 -->
+    <package name="thirteen_validate" namespace="/mystruts2/thirteen_validate" extends="struts-default">
+        <action name="loginAction_*" class="com.discry.struts2.actions.thirteen_validate.LoginAction" method="{1}">
+            <result>/thirteen_validate/welcome.jsp</result>
+            <result name="input">/thirteen_validate/regedit.jsp</result>
+        </action>
+        <action name="regeditAction_*" class="com.discry.struts2.actions.thirteen_validate.RegeditAction" method="{1}">
+            <result>/thirteen_validate/welcome.jsp</result>
+            <result name="input">/thirteen_validate/regedit.jsp</result>
+        </action>
+        <action name="regeditNewAction_*" class="com.discry.struts2.actions.thirteen_validate.RegeditNewAction" method="{1}">
+            <result>/thirteen_validate/welcome.jsp</result>
+            <result name="input">/thirteen_validate/regedit.jsp</result>
+        </action>
+    </package>
+    <!-- 第14课 拦截器 -->
+    <package name="fourteen_interceptor" namespace="/mystruts2/fourteen_interceptor" extends="struts-default">
+        <interceptors>
+            <interceptor name="permissionInterceptor" class="com.discry.struts2.actions.fourteen_interceptor.PermissionInterceptor"/>
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="permissionInterceptor"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <!-- 默认的拦截器:当前包中只要没有显式的声明要使用的拦截器，则就会执行默认拦截器 -->
+        <default-interceptor-ref name="myStack"/>
+        <action name="loginAction_*" class="com.discry.struts2.actions.fourteen_interceptor.LoginAction" method="{1}">
+            <result>/fourteen_interceptor/welcome.jsp</result>
+            <result name="input">/fourteen_interceptor/fail.jsp</result>
+        </action>
+    </package>
+    <!-- 第15课 方法拦截器 -->
+    <package name="fifteen_MethodInterceptor" namespace="/mystruts2/fifteen_MethodInterceptor" extends="struts-default">
+        <interceptors>
+            <interceptor name="permissionMethodInterceptor" class="com.discry.struts2.actions.fifteen_MethodInterceptor.PermissionMethodInterceptor">
+                <param name="includeMethods">privateHome</param>
+            </interceptor>
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="permissionMethodInterceptor"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <action name="loginAction_*" class="com.discry.struts2.actions.fifteen_MethodInterceptor.LoginAction" method="{1}">
+            <result>/fifteen_methodInterceptor/welcome.jsp</result>
+            <result name="input">/fifteen_methodInterceptor/fail.jsp</result>
+            <result name="home">/fifteen_methodInterceptor/home.jsp</result>
+            <interceptor-ref name="myStack"/>
+        </action>
+    </package>
+    <!-- 第16课 拦截器执行顺序 -->
+    <package name="sixteen_interceptorOrder" namespace="/mystruts2/sixteen_interceptorOrder" extends="struts-default">
+        <interceptors>
+            <interceptor name="firstInterceptor" class="com.discry.struts2.actions.sixteen_InterceptorOrder.firstInterceptor" />
+            <interceptor name="secondInterceptor" class="com.discry.struts2.actions.sixteen_InterceptorOrder.SecondInterceptor"/>
+            <interceptor-stack name="my_stack">
+                <interceptor-ref name="firstInterceptor"/>
+                <interceptor-ref name="secondInterceptor"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <action name="someAction" class="com.discry.struts2.actions.sixteen_InterceptorOrder.SomeAction">
+            <result>/sixteen_InterceptorOrder/welcome.jsp</result>
+            <interceptor-ref name="my_stack"/>
+        </action>
+    </package>
+    <!-- 第17课 国际化 -->
+    <constant name="struts.custom.i18n.resources" value="mystruts2"/>
+    <package name="seventeen_i18n" namespace="/mystruts2/seventeen_i18n" extends="struts-default">
+        <action name="languageAction">
+            <result>/seventeen_i18n/index.jsp</result>
+        </action>
+        <action name="loginAction_*" class="com.discry.struts2.actions.seventeen_i18n.LoginAction" method="{1}">
+            <result>/seventeen_i18n/welcome.jsp</result>
+        </action>
+    </package>
+    <!-- 第18课 文件上传 -->
+    <package name="eighteen_fileupload" namespace="/mystruts2/eighteen_fileupload" extends="struts-default">
+        <action name="uploadAction_*" class="com.discry.struts2.actions.eighteen_fileupload.UploadAction" method="{1}">
+            <result>/eighteen_fileupload/success.jsp</result>
+            <result name="input">/eighteen_fileupload/fail.jsp</result>
+            <interceptor-ref name="defaultStack">
+                <param name="fileUpload.allowedExtensions">jpg,png,jsp,exe</param>
+                <!-- 设置上传文件最大值 -->
+                <param name="fileUpload.maximumSize">6902401</param>
+            </interceptor-ref>
+        </action>
+        <action name="multiUploadAction" class="com.discry.struts2.actions.eighteen_fileupload.MultiUploadAction">
+            <result>/eighteen_fileupload/success.jsp</result>
+            <result name="input">/eighteen_fileupload/fail.jsp</result>
+        </action>
+    </package>
+    <!-- 第19课 文件下载 -->
+    <package name="nineteen_downloadFile" namespace="/mystruts2/nineteen_downloadFile" extends="struts-default">
+        <action name="downloadAction" class="com.discry.struts2.actions.nineteen_downloadFile.DownloadAction">
+            <result type="stream">
+                <param name="contentDisposition">attachment;fileName=${fileName}</param>
+                <param name="inputName">is</param>
+            </result>
+        </action>
+        <action name="downloadAction2" class="com.discry.struts2.actions.nineteen_downloadFile.DownloadAction2">
+            <result type="stream">
+                <param name="contentDisposition">attachment;fileName=${fileName}</param>
+            </result>
+        </action>
+    </package>
+    <!-- 第20课 防止重复提交 -->
+    <package name="twenty_token" namespace="/mystruts2/twenty_token" extends="struts-default">
+        <action name="paymentAction" class="com.discry.struts2.actions.twenty_token.PaymentAction">
+            <result>/twenty_token/success.jsp</result>
+            <result name="invalid.token">/twenty_token/message.jsp</result>
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+    </package>
+</struts>
